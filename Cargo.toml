@@ -3,6 +3,13 @@ name = "validated_newtype"
 version = "0.1.0"
 authors = ["Maximilian Siling <mouse-art@ya.ru>"]
 edition = "2018"
+description = "Simple newtypes with checked predicates (primarily for serde)"
+homepage = "https://github.com/GoldsteinE/validated_newtype"
+repository = "https://github.com/GoldsteinE/validated_newtype"
+readme = "README.md"
+keywords = ["newtype", "serde", "validation", "data validation"]
+categories = ["no-std", "rust-patterns"]
+license = "MIT"
 
 [features]
 default = ["serde"]
