@@ -1,6 +1,6 @@
 [package]
 name = "validated_newtype"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Maximilian Siling <mouse-art@ya.ru>"]
 edition = "2018"
 description = "Simple newtypes with checked predicates (primarily for serde)"
