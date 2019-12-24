@@ -18,16 +18,14 @@
 //!     error "percent must be in range 0-100"
 //! }
 //!
-//! # fn main() {
 //! let x: Percent = serde_json::from_str("42").unwrap();
 //! assert_eq!(*x, 42);
 //! let y: Result<Percent, _> = serde_json::from_str("1337");
 //! assert!(y.is_err());
-//! # }
 //! ```
 //! Instances of generated newtype can be created only via [TryFrom] or [Deserialize],
 //! so they always hold valid data.
-//! 
+//!
 //! ## Dynamic error generation
 //! ```
 //! # use core::convert::TryInto;
@@ -40,12 +38,10 @@
 //!     else |n: &u32| format!("number {} is not in range 0-100", n) => String
 //! }
 //!
-//! # fn main() {
 //! // Deserialize for newtypes uses try_into internally
 //! let x: Result<Percent, _> = 1337.try_into();
 //! assert!(x.is_err());
 //! assert_eq!(x.unwrap_err(), "number 1337 is not in range 0-100");
-//! # }
 //! ```
 //! ## Manually implement [TryFrom]
 //! ```
@@ -69,12 +65,10 @@
 //!     }
 //! }
 //!
-//! # fn main() {
 //! let x: Percent = serde_json::from_str("42").unwrap();
 //! assert_eq!(*x, 42);
 //! let y: Result<Percent, _> = serde_json::from_str("1337");
 //! assert!(y.is_err());
-//! # }
 //! ```
 //!
 //! [TryFrom]: https://doc.rust-lang.org/stable/core/convert/trait.TryFrom.html
@@ -90,9 +84,11 @@ macro_rules! add_deserialize {
     ($type:ident, $parent:ty) => {
         impl<'de> serde::Deserialize<'de> for $type {
             fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-                use serde::de::Error as _;
                 use core::convert::TryInto as _;
-                <$parent as serde::Deserialize>::deserialize(deserializer)?.try_into().map_err(D::Error::custom)
+                use serde::de::Error as _;
+                <$parent as serde::Deserialize>::deserialize(deserializer)?
+                    .try_into()
+                    .map_err(D::Error::custom)
             }
         }
     };
@@ -102,7 +98,7 @@ macro_rules! add_deserialize {
 #[doc(hidden)]
 #[macro_export]
 macro_rules! add_deserialize {
-    ($type:ident, $parent:ty) => {}
+    ($type:ident, $parent:ty) => {};
 }
 
 #[doc(hidden)]
@@ -111,7 +107,7 @@ macro_rules! add_try_from {
     ($type:ident, $parent:ty, $predicate:expr, $error_type:ty, $error:expr) => {
         impl core::convert::TryFrom<$parent> for $type {
             type Error = $error_type;
-            
+
             fn try_from(val: $parent) -> Result<Self, $error_type> {
                 if $predicate(&val) {
                     Ok($type(val))
