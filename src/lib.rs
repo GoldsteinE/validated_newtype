@@ -10,7 +10,7 @@
 //! validated_newtype! {
 //!     /// Documentation comments and attributes are applied
 //!     #[derive(Debug, PartialOrd, Ord, PartialEq, Eq)]
-//!     // basic type name => optional visibility + newtype name
+//!     // base type name => optional visibility + newtype name
 //!     u32 => pub Percent
 //!     // condition to check when creating/deserializing
 //!     if |n: &u32| *n <= 100;
