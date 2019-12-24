@@ -1,0 +1,14 @@
+[package]
+name = "validated_newtype"
+version = "0.1.0"
+authors = ["Maximilian Siling <mouse-art@ya.ru>"]
+edition = "2018"
+
+[features]
+default = ["serde"]
+
+[dependencies]
+serde = { version = "~1.0", optional = true, default-features = false }
+
+[dev-dependencies]
+serde_json = "~1.0"
