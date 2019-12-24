@@ -65,4 +65,4 @@ assert!(y.is_err());
 ```
 
 [TryFrom]: https://doc.rust-lang.org/stable/core/convert/trait.TryFrom.html
-[Deserialize]: https://docs.rs/serde/latest/serde/trait.Deserialize.html}}}
+[Deserialize]: https://docs.rs/serde/latest/serde/trait.Deserialize.html
